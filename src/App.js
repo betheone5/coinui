@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+require('dotenv').config()
+
+const apiendpoint = process.env.API_END_POINT || " http://localhost:8080";
 
 class App extends Component {
   constructor(props) {
@@ -14,7 +17,9 @@ class App extends Component {
   }
 
    updateUser() {
-    const url = "http://localhost:8080/user";
+    console.log( process.env.REACT_APP_PORT + "...test" );
+
+    const url = apiendpoint+"/user";
     fetch(url)
       .then(response => response.json())
       .then(response => {
@@ -26,7 +31,7 @@ class App extends Component {
 
   componentDidMount() {
     console.log("check this");
-    const url = "http://localhost:8080/user";
+    const url = apiendpoint+"/user";
     fetch(url)
       .then(response => response.json())
       .then(response => {
@@ -35,7 +40,7 @@ class App extends Component {
       })
       .catch(error => console.log(error))
 
-    const url1 = "http://localhost:8080/currency";
+    const url1 = apiendpoint+"/currency";
     fetch(url1)
       .then(response => response.json())
       .then(json => {
@@ -50,7 +55,7 @@ class App extends Component {
 
     if (this.nameTextInput !== null && this.nameTextInput.value > 0) {
       console.log(this.nameTextInput.value);
-      const url = "http://localhost:8080/user/currency/withdraw/"+this.nameTextInput.value;
+      const url = apiendpoint+"/user/currency/withdraw/"+this.nameTextInput.value;
       fetch(url, {
         method: "POST"
         // body: JSON.stringify({userId: 1}),
@@ -89,7 +94,7 @@ class App extends Component {
 
         <div className="card" key="atm">
           <div className="card-header">
-            ATM
+            ATM {process.env.REACT_APP_API_END_POINT}
           </div>
           <div className="card-body">
             <div className="input-group mb-3">
