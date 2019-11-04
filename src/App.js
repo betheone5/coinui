@@ -11,43 +11,41 @@ class App extends Component {
       user: "",
       currency: [],
       mynotes:[],
-      updateUser:false
     }
     this.handleClick = this.handleClick.bind(this);
   }
 
    updateUser() {
-    console.log( process.env.REACT_APP_PORT + "...test" );
-
     const url = apiendpoint+"/user";
     fetch(url)
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         this.setState({ user: response });
       })
       .catch(error => console.log(error))
   }
 
   componentDidMount() {
-    console.log("check this");
-    const url = apiendpoint+"/user";
-    fetch(url)
-      .then(response => response.json())
-      .then(response => {
-        console.log(response);
-        this.setState({ user: response, updateUser:true });
-      })
-      .catch(error => console.log(error))
+    // console.log("check this");
+    // const url = apiendpoint+"/user";
+    // fetch(url)
+    //   .then(response => response.json())
+    //   .then(response => {
+    //     console.log(response);
+    //     this.setState({ user: response });
+    //   })
+    //   .catch(error => console.log(error))
 
-    const url1 = apiendpoint+"/currency";
-    fetch(url1)
-      .then(response => response.json())
-      .then(json => {
-        console.log(json);
-        this.setState({ currency: json });
-      })
-      .catch(error => console.log(error))
+    // const url1 = apiendpoint+"/currency";
+    // fetch(url1)
+    //   .then(response => response.json())
+    //   .then(json => {
+    //     console.log(json);
+    //     this.setState({ currency: json });
+    //   })
+    //   .catch(error => console.log(error))
+
+    this.updateUser();
   }
 
   handleClick() {
@@ -67,7 +65,6 @@ class App extends Component {
       })
         .then(response => response.json())
         .then(response => {
-          console.log(response);
           this.setState({ mynotes: response });
         })
         .catch(error => console.log(error))
@@ -94,7 +91,7 @@ class App extends Component {
 
         <div className="card" key="atm">
           <div className="card-header">
-            ATM {process.env.REACT_APP_API_END_POINT}
+            ATM - Enter an amount to withdraw
           </div>
           <div className="card-body">
             <div className="input-group mb-3">
@@ -132,11 +129,11 @@ class App extends Component {
                             <td>{note.count}</td>
                           </tr>
                           ))}
-                          {this.updateUser()}
+                          
                         </tbody>
                       </table>
                     </li>
-                
+                    {this.updateUser()}
                 </ul>
             </div>
            </div> 
