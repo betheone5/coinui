@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 require('dotenv').config()
 
-const apiendpoint = process.env.API_END_POINT || " http://localhost:8080";
+const apiendpoint = process.env.REACT_APP_API_END_POINT || " http://localhost:8080";
 
 class App extends Component {
   constructor(props) {
@@ -10,13 +10,13 @@ class App extends Component {
     this.state = {
       user: "",
       currency: [],
-      mynotes:[],
+      mynotes: [],
     }
     this.handleClick = this.handleClick.bind(this);
   }
 
-   updateUser() {
-    const url = apiendpoint+"/user";
+  updateUser() {
+    const url = apiendpoint + "/user";
     fetch(url)
       .then(response => response.json())
       .then(response => {
@@ -53,7 +53,7 @@ class App extends Component {
 
     if (this.nameTextInput !== null && this.nameTextInput.value > 0) {
       console.log(this.nameTextInput.value);
-      const url = apiendpoint+"/user/currency/withdraw/"+this.nameTextInput.value;
+      const url = apiendpoint + "/user/currency/withdraw/" + this.nameTextInput.value;
       fetch(url, {
         method: "POST"
         // body: JSON.stringify({userId: 1}),
@@ -83,7 +83,7 @@ class App extends Component {
             User information
           </div>
           <div className="card-body">
-            <h5 className="card-title">Name:  {user.name}</h5>
+            <p className="card-text">Name:  {user.name}</p>
             <p className="card-text">Balance : {user.balance}</p>
             {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
           </div>
@@ -100,27 +100,29 @@ class App extends Component {
               </div>
               <input type="number" ref={(ref) => this.nameTextInput = ref} className="form-control" aria-label="Amount (to the nearest dollar)" />
               <button type="button" className="btn btn-dark" onClick={this.handleClick}>Withdraw</button>
-              
-            </div>
-            <div className="input-group mb-3">
-            <div className="card-header">
-            Amount is withdrawn in following currency types 
-          </div>
-          <div className="input-group mb-3">
 
+            </div>
+          </div>
+        </div>
+        <div className="card" key="amoutshow">
+          <div className="card-header">
+          Amount is withdrawn in following currency types
+          </div>
+          <div className="card-body">
+            <div className="input-group mb-3">
                 <ul className="list-group">
-                  
-                    <li className="list-group-item">
-                      <table className="table table-dark">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Currency type</th>
-                            <th scope="col">Value</th>
-                            <th scope="col">Count</th>
-                          </tr>
-                        </thead>
-                        <tbody>
+
+                  <li className="list-group-item">
+                    <table className="table table-dark">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Currency type</th>
+                          <th scope="col">Value</th>
+                          <th scope="col">Count</th>
+                        </tr>
+                      </thead>
+                      <tbody>
                         {mynotes.map((note) => (
                           <tr>
                             <th scope="row">-</th>
@@ -128,15 +130,14 @@ class App extends Component {
                             <td>{note.value}</td>
                             <td>{note.count}</td>
                           </tr>
-                          ))}
-                          
-                        </tbody>
-                      </table>
-                    </li>
-                    {this.updateUser()}
+                        ))}
+
+                      </tbody>
+                    </table>
+                  </li>
+                  {this.updateUser()}
                 </ul>
-            </div>
-           </div> 
+              </div>
           </div>
         </div>
       </div>
